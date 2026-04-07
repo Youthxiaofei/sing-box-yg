@@ -48,3 +48,21 @@ echo "你选择的IP："
 for ip in "${SELECTED_IPS[@]}"; do
   echo "- $ip"
 done
+echo ""
+echo "正在生成节点参数..."
+
+# UUID
+UUID=$(cat /proc/sys/kernel/random/uuid)
+
+# Reality 密钥
+KEY_OUTPUT=$(xray x25519 2>/dev/null)
+
+PRIVATE_KEY=$(echo "$KEY_OUTPUT" | grep 'PrivateKey' | awk '{print $2}')
+PUBLIC_KEY=$(echo "$KEY_OUTPUT" | grep 'PublicKey' | awk '{print $3}')
+
+echo ""
+echo "=============================="
+echo "UUID: $UUID"
+echo "PublicKey: $PUBLIC_KEY"
+echo "PrivateKey: $PRIVATE_KEY"
+echo "=============================="
